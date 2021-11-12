@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Article from './Article';
 import EditForm from './EditForm';
+
+import axiosWithAuth from '../utils/axiosWithAuth';
+import axios from 'axios';
+import articleService from '../services/articleServices';
 
 const View = (props) => {
     const [articles, setArticles] = useState([]);
@@ -23,6 +27,13 @@ const View = (props) => {
     const handleEditCancel = ()=>{
         setEditing(false);
     }
+
+
+    useEffect(()=>{
+        articleService().then(res => {
+            setArticles(res)
+        })
+    }, [])
 
     return(<ComponentContainer>
         <HeaderContainer>View Articles</HeaderContainer>
