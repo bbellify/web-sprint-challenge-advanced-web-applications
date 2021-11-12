@@ -62,7 +62,7 @@ const Login = () => {
                     <Input 
                         id='password'
                         name='password'
-                        // type='password'
+                        type='password'
                         value={formValues.password}
                         onChange={handleChange}
                     />
