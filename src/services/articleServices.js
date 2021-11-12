@@ -5,16 +5,6 @@ const articleService = async ()=> {
     const res = await axiosWithAuth().get('/articles')
     
     return res.data
-    
-    // .then( res => {
-    //     let list = []
-    //     // console.log('service: ', res)
-    //     list = res.data
-    //     return list
-    // })
-    // .catch( err => {
-    //     console.log({err})
-    // })
 }
 
 export default articleService;

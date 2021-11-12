@@ -14,9 +14,21 @@ const View = (props) => {
     const [editId, setEditId] = useState();
 
     const handleDelete = (id) => {
+        axiosWithAuth()
+        .delete(`/articles/${id}`)
+        .then( res => {
+            setArticles(res.data)
+        })
     }
 
     const handleEdit = (article) => {
+        axiosWithAuth()
+        .put(`/articles/${editId}`, article)
+        .then(res => {
+            // console.log(res)
+            setArticles(res.data)
+            setEditing(false)
+        })
     }
 
     const handleEditSelect = (id)=> {
