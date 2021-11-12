@@ -10,25 +10,39 @@ import Article from './Article';
 
 
 test('renders component without errors', ()=> {
-    const testArticle = {}
+    const testArticle = {
+        headline: 'headline',
+        author: 'person',
+        summary: 'some stuff',
+        body: 'more content'
+    }
 
-    render(<Article article={testArticle} />)
+    const fakeDelete = jest.fn()
+    const fakeEdit = jest.fn()
+
+    render(<Article article={testArticle} handleDelete={fakeDelete} handleEditSelect={fakeEdit}/>)
 });
 
 test('renders headline, author from the article when passed in through props', ()=> {
 
     const testArticle = {
         headline: 'headline',
-        author: 'person'
+        author: 'person',
+        summary: 'some stuff',
+        body: 'more content'
     }
 
     render(<Article article={testArticle} />)
 
     const headline = screen.queryByText(/headline/i)
     const author = screen.queryByText(/person/i)
+    const summary = screen.queryByText(/some stuff/i)
+    const body = screen.queryByText(/more content/i)
 
     expect(headline).toBeTruthy()
     expect(author).toBeTruthy()
+    expect(summary).toBeTruthy()
+    expect(body).toBeTruthy()
     
 });
 
