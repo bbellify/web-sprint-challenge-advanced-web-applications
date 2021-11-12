@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const Login = () => {
     
-    const {push} = useHistory()
+    const { push } = useHistory()
     
     const [isLoggingIn, setIsLoggingIn] = useState(false)
 
@@ -34,11 +34,12 @@ const Login = () => {
                 // console.log(res)
                 localStorage.setItem('token', res.data.token)
                 setIsLoggingIn(false)
+                setError('')
                 push('/view')
             })
             .catch(err => {
                 // console.log({err})
-                setError(err.message)
+                setError(`Username or password incorrect.`)
                 setIsLoggingIn(false)
             })
     }

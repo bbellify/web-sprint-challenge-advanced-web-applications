@@ -47,6 +47,7 @@ const View = (props) => {
         })
     }, [])
 
+
     return(<ComponentContainer>
         <HeaderContainer>View Articles</HeaderContainer>
         <ContentContainer flexDirection="row">
