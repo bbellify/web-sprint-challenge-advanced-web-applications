@@ -13,6 +13,8 @@ test("renders zero articles without errors", async () => {
 
     render(<View />)
 
+    await waitFor(()=> expect(articleService).toHaveBeenCalled())
+
 });
 
 test("renders three articles without errors", async ()=> {
@@ -34,6 +36,7 @@ test("renders three articles without errors", async ()=> {
 
     const articles = await screen.findAllByTestId('headline');
 
+    await waitFor(()=> expect(articleService).toHaveBeenCalled())
     await waitFor(()=> expect(articles).toHaveLength(3))
 
 
