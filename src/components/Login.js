@@ -1,12 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components';
+import axios from 'axios'
 
 const Login = () => {
     
+    const {push} = useHistory()
+    
+    const [isLoggingIn, setIsLoggingIn] = useState(false)
+
+    const [error, setError] = useState('')
+
+    const initialValues = {
+        username: '',
+        password: ''
+    }
+
+    const [formValues, setFormValues] = useState(initialValues)
+
+    const handleChange = e => {
+        setFormValues({
+            ...formValues,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const login = e => {
+        e.preventDefault();
+        setIsLoggingIn(true);
+
+        axios.post('http://localhost:5000/api/login', formValues)
+            .then(res => {
+                // console.log(res)
+                localStorage.setItem('token', res.data.token)
+                setIsLoggingIn(false)
+                push('/view')
+            })
+            .catch(err => {
+                // console.log({err})
+                setError(err.message)
+                setIsLoggingIn(false)
+            })
+    }
+
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
+            <FormGroup onSubmit={login}>
+                <Label>Username:
+                    <Input 
+                        type='text'
+                        name='username'
+                        id='username'
+                        value={formValues.username}
+                        onChange={handleChange}
+                    />
+                </Label>
+                <Label>Password:
+                    <Input 
+                        id='password'
+                        name='password'
+                        // type='password'
+                        value={formValues.password}
+                        onChange={handleChange}
+                    />
+                </Label>
+                <Button id='submit'>Login</Button>
+                {isLoggingIn && <h3>Logging in...</h3>}
+            </FormGroup>
+            <p id='error'>{error}</p>
         </ModalContainer>
     </ComponentContainer>);
 }
