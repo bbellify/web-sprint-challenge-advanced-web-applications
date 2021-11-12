@@ -9,7 +9,7 @@ const Login = () => {
     
     const [isLoggingIn, setIsLoggingIn] = useState(false)
 
-    const [error, setError] = useState('')
+    const [error, setError] = useState(false)
 
     const initialValues = {
         username: '',
@@ -34,12 +34,12 @@ const Login = () => {
                 // console.log(res)
                 localStorage.setItem('token', res.data.token)
                 setIsLoggingIn(false)
-                setError('')
+                setError(false)
                 push('/view')
             })
             .catch(err => {
                 // console.log({err})
-                setError(`Username or password incorrect.`)
+                setError(true)
                 setIsLoggingIn(false)
             })
     }
@@ -70,7 +70,7 @@ const Login = () => {
                 <Button id='submit'>Login</Button>
                 {isLoggingIn && <h3>Logging in...</h3>}
             </FormGroup>
-            <p id='error'>{error}</p>
+            {error && <p id='error'>Incorrect username or password</p>}
         </ModalContainer>
     </ComponentContainer>);
 }
